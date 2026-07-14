@@ -1,16 +1,16 @@
-\# Lung Cancer Nodule Classification from Chest CT Images using Deep Learning
+# Lung Cancer Nodule Classification from Chest CT Images using Deep Learning
 
 
 
-\## Overview
+## Overview
 
 
 
-This repository contains the complete implementation of my MSc Computer Science dissertation at the \*\*University of East London\*\*.
+This repository contains the complete implementation of my MSc Computer Science dissertation at the **University of East London**.
 
 
 
-The project develops an end-to-end deep learning pipeline for \*\*lung cancer nodule classification\*\* using the publicly available \*\*LIDC-IDRI (Lung Image Database Consortium and Image Database Resource Initiative)\*\* dataset.
+The project develops an end-to-end deep learning pipeline for **lung cancer nodule classification** using the publicly available **LIDC-IDRI (Lung Image Database Consortium and Image Database Resource Initiative)** dataset.
 
 
 
@@ -18,11 +18,11 @@ Unlike many existing implementations that use pre-processed datasets, this proje
 
 
 
-\---
+---
 
 
 
-\# Research Objectives
+# Research Objectives
 
 
 
@@ -30,27 +30,27 @@ The objectives of this project are to:
 
 
 
-\* Build a fully reproducible preprocessing pipeline from the original LIDC-IDRI dataset.
+* Build a fully reproducible preprocessing pipeline from the original LIDC-IDRI dataset.
 
-\* Extract annotated pulmonary nodules using consensus annotations from multiple radiologists.
+* Extract annotated pulmonary nodules using consensus annotations from multiple radiologists.
 
-\* Generate standardized CNN-ready image datasets.
+* Generate standardized CNN-ready image datasets.
 
-\* Train and evaluate deep learning models for benign and malignant lung nodule classification.
+* Train and evaluate deep learning models for benign and malignant lung nodule classification.
 
-\* Compare the performance of multiple CNN architectures.
-
-
-
-\---
+* Compare the performance of multiple CNN architectures.
 
 
 
-\# Dataset
+---
 
 
 
-\*\*Dataset:\*\* LIDC-IDRI (Lung Image Database Consortium)
+# Dataset
+
+
+
+**Dataset:** LIDC-IDRI (Lung Image Database Consortium)
 
 
 
@@ -58,15 +58,15 @@ The dataset contains:
 
 
 
-\* Thoracic CT scans in DICOM format
+* Thoracic CT scans in DICOM format
 
-\* XML annotations from up to four experienced thoracic radiologists
+* XML annotations from up to four experienced thoracic radiologists
 
-\* Nodule segmentation contours
+* Nodule segmentation contours
 
-\* Radiological characteristics
+* Radiological characteristics
 
-\* Malignancy ratings
+* Malignancy ratings
 
 
 
@@ -74,11 +74,11 @@ This project uses the original CT images together with the XML annotations to au
 
 
 
-\---
+---
 
 
 
-\# Project Pipeline
+# Project Pipeline
 
 
 
@@ -142,11 +142,11 @@ Performance Evaluation
 
 
 
-\---
+---
 
 
 
-\# Repository Structure
+# Repository Structure
 
 
 
@@ -160,21 +160,21 @@ Dissertation/
 
 ├── Notebooks/
 
-│   ├── 01\_Dataset\_Exploration.ipynb
+│   ├── 01_Dataset_Exploration.ipynb
 
-│   ├── 02\_XML\_Annotation\_Parsing.ipynb
+│   ├── 02_XML_Annotation_Parsing.ipynb
 
-│   ├── 03\_Metadata\_Generation.ipynb
+│   ├── 03_Metadata_Generation.ipynb
 
-│   ├── 04\_ROI\_Extraction\_Legacy.ipynb
+│   ├── 04_ROI_Extraction_Legacy.ipynb
 
-│   ├── 05\_pyLIDC\_Exploration.ipynb
+│   ├── 05_pyLIDC_Exploration.ipynb
 
-│   ├── 06\_Nodule\_Extraction.ipynb
+│   ├── 06_Nodule_Extraction.ipynb
 
-│   ├── 07\_Dataset\_Standardization.ipynb
+│   ├── 07_Dataset_Standardization.ipynb
 
-│   └── 08\_Model\_Training.ipynb (In Progress)
+│   └── 08_Model_Training.ipynb (In Progress)
 
 │
 
@@ -182,7 +182,7 @@ Dissertation/
 
 │   ├── Raw/
 
-│   ├── ANNOTATION\_STAGING/
+│   ├── ANNOTATION_STAGING/
 
 │   └── Processed/
 
@@ -198,71 +198,71 @@ Dissertation/
 
 
 
-\---
+---
 
 
 
-\# Current Progress
+# Current Progress
 
 
 
-\* Dataset exploration completed
+* Dataset exploration completed
 
-\* XML annotation parser implemented
+* XML annotation parser implemented
 
-\* Metadata generation completed
+* Metadata generation completed
 
-\* pyLIDC integration completed
+* pyLIDC integration completed
 
-\* Consensus nodule extraction pipeline completed
+* Consensus nodule extraction pipeline completed
 
-\* Automatic mask generation implemented
+* Automatic mask generation implemented
 
-\* Dataset checkpointing and resume support implemented
+* Dataset checkpointing and resume support implemented
 
-\* CNN dataset generation pipeline implemented
+* CNN dataset generation pipeline implemented
 
-\* Deep learning model training (In Progress)
-
-
-
-\---
+* Deep learning model training (In Progress)
 
 
 
-\# Technologies Used
+---
 
 
 
-\* Python
-
-\* Google Colab
-
-\* NumPy
-
-\* Pandas
-
-\* Matplotlib
-
-\* OpenCV
-
-\* PyDICOM
-
-\* pyLIDC
-
-\* Scikit-image
-
-\* Scikit-learn
-
-\* TensorFlow / Keras
+# Technologies Used
 
 
 
-\---
+* Python
+
+* Google Colab
+
+* NumPy
+
+* Pandas
+
+* Matplotlib
+
+* OpenCV
+
+* PyDICOM
+
+* pyLIDC
+
+* Scikit-image
+
+* Scikit-learn
+
+* TensorFlow / Keras
 
 
 
-\# Dataset Output
+---
+
+
+
+# Dataset Output
 
 
 
@@ -270,49 +270,49 @@ The preprocessing pipeline generates:
 
 
 
-\* 3D lung nodule patches
+* 3D lung nodule patches
 
-\* Consensus segmentation masks
+* Consensus segmentation masks
 
-\* Standardized PNG images for CNN training
+* Standardized PNG images for CNN training
 
-\* Metadata CSV files
+* Metadata CSV files
 
-\* Processing logs with automatic checkpointing
-
-
-
-\---
+* Processing logs with automatic checkpointing
 
 
 
-\# Future Work
+---
 
 
 
-\* Train multiple CNN architectures
-
-\* Hyperparameter optimisation
-
-\* Performance comparison
-
-\* Explainable AI (Grad-CAM)
-
-\* Model evaluation using ROC, Precision-Recall and Confusion Matrix
-
-\* Web-based inference prototype
+# Future Work
 
 
 
-\---
+* Train multiple CNN architectures
+
+* Hyperparameter optimisation
+
+* Performance comparison
+
+* Explainable AI (Grad-CAM)
+
+* Model evaluation using ROC, Precision-Recall and Confusion Matrix
+
+* Web-based inference prototype
 
 
 
-\# Author
+---
 
 
 
-\*\*Ranjeet Kumar Mahato\*\*
+# Author
+
+
+
+**Ranjeet Kumar Mahato**
 
 
 
@@ -324,11 +324,11 @@ University of East London
 
 
 
-\---
+---
 
 
 
-\# License
+# License
 
 
 
