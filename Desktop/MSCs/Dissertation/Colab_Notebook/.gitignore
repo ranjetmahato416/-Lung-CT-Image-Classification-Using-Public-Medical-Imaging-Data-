@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Virtual env
+venv/
+.env/
+
+# Dataset
+Dataset/Raw/
+Dataset/Processed/
+
+# Google Drive cache
+.drive/
+
+# Models
+*.h5
+*.keras
+*.pt
+*.pth
+
+# Logs
+processing_log.csv
+
+# Metadata generated during preprocessing
+cnn_dataset.csv
+nodule_dataset.csv
+
+# Temporary
+*.tmp
+*.log
+
+# macOS
+.DS_Store
