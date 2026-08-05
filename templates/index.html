@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="hero">
+
+    <h1>
+        CT Lung Nodule Analysis
+    </h1>
+
+    <p>
+        Upload a lung CT nodule image for analysis using
+        the validation-selected fine-tuned DenseNet121 model.
+    </p>
+
+</section>
+
+
+{% with messages = get_flashed_messages() %}
+
+    {% if messages %}
+
+        <div class="flash-container">
+
+            {% for message in messages %}
+
+                <div class="flash-message">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+{% endwith %}
+
+
+<div class="upload-card">
+
+    <form
+        method="POST"
+        enctype="multipart/form-data"
+    >
+
+        <label
+            for="image"
+            class="upload-label"
+        >
+            Select CT image
+        </label>
+
+        <input
+            id="image"
+            type="file"
+            name="image"
+            accept=".png,.jpg,.jpeg"
+            required
+        >
+
+        <p class="help-text">
+            Supported formats:
+            PNG, JPG, JPEG.
+            Maximum size: 10 MB.
+        </p>
+
+        <button
+            type="submit"
+        >
+            Analyse Image
+        </button>
+
+    </form>
+
+</div>
+
+
+<div class="research-notice">
+
+    <strong>
+        Research-use notice
+    </strong>
+
+    <p>
+        This system is an academic prototype and is not
+        intended for clinical diagnosis.
+    </p>
+
+</div>
+
+{% endblock %}

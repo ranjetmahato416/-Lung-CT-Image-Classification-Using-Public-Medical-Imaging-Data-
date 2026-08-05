@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>
+    Lung Nodule Analysis
+</h1>
+
+
+<div class="result-grid">
+
+    <div class="image-panel">
+
+        <h3>
+            Uploaded Image
+        </h3>
+
+        <img
+            src="{{ url_for(
+                'static',
+                filename='uploads/' + filename
+            ) }}"
+            alt="Uploaded CT image"
+            class="result-image"
+        >
+
+    </div>
+
+
+    <div class="image-panel">
+
+        <h3>
+            Grad-CAM Visualization
+        </h3>
+
+        <img
+            src="{{ url_for(
+                'static',
+                filename='gradcam/' + gradcam_filename
+            ) }}"
+            alt="Grad-CAM visualization"
+            class="result-image"
+        >
+
+    </div>
+
+</div>
+
+
+<div class="result-summary">
+
+    <h2>
+        Prediction:
+        {{ predicted_class }}
+    </h2>
+
+    <p>
+        <strong>
+            Model output score:
+        </strong>
+
+        {{ "%.4f"|format(probability) }}
+    </p>
+
+
+    <p>
+        <strong>
+            Model output percentage:
+        </strong>
+
+        {{ "%.2f"|format(probability * 100) }}%
+    </p>
+
+
+    <p>
+        <strong>
+            Decision threshold:
+        </strong>
+
+        {{ "%.4f"|format(threshold) }}
+    </p>
+
+
+    <p>
+        <strong>
+            Predicted label:
+        </strong>
+
+        {{ predicted_label }}
+    </p>
+
+
+    <p>
+        <strong>
+            Uploaded file:
+        </strong>
+
+        {{ original_filename }}
+    </p>
+
+</div>
+
+<div class="prediction-card">
+
+    <span class="prediction-label">
+        Model classification
+    </span>
+
+    <h2>
+        {{ predicted_class }}
+    </h2>
+
+    <div class="score-container">
+
+        <div class="score-label">
+
+            Model output:
+            {{ "%.2f"|format(
+                probability * 100
+            ) }}%
+
+        </div>
+
+        <div class="score-track">
+
+            <div
+                class="score-fill"
+                style="
+                    width:
+                    {{ (probability * 100) }}%;
+                "
+            >
+            </div>
+
+        </div>
+
+        <div class="threshold-text">
+
+            Decision threshold:
+            {{ "%.2f"|format(
+                threshold * 100
+            ) }}%
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="gradcam-info">
+
+    <h3>
+        What does the Grad-CAM image show?
+    </h3>
+
+    <p>
+        The coloured Grad-CAM visualization highlights
+        image regions that had greater influence on the
+        model's predicted class.
+    </p>
+
+    <p>
+        These highlighted regions indicate model attention
+        and should not be interpreted as precise tumour
+        boundaries or clinical annotations.
+    </p>
+
+</div>
+
+<div class="ai-explanation">
+
+    <h3>
+        AI-Assisted Explanation
+    </h3>
+
+    <p class="explanation-note">
+        This explanation is generated from the DenseNet121
+        prediction and Grad-CAM metadata. Gemini does not make
+        the classification independently.
+    </p>
+
+    <div class="explanation-text">
+        {{ explanation }}
+    </div>
+
+</div>
+
+
+<div class="disclaimer">
+
+    <strong>
+        Research-use notice
+    </strong>
+
+    <p>
+        This application is an academic research prototype.
+        Its output is not intended to provide a medical
+        diagnosis or replace evaluation by a qualified
+        healthcare professional.
+    </p>
+
+</div>
+
+<div class="score-container">
+
+    <div class="score-label">
+
+        Model score:
+        {{ "%.2f"|format(probability * 100) }}%
+
+    </div>
+
+    <div class="score-track">
+
+        <div
+            class="score-fill"
+            style="width:
+            {{ probability * 100 }}%;"
+        >
+        </div>
+
+    </div>
+
+    <div class="threshold-text">
+
+        Decision threshold:
+        {{ "%.2f"|format(threshold * 100) }}%
+
+    </div>
+
+</div>
+
+
+<a
+    href="{{ url_for('index') }}"
+    class="back-link"
+>
+    Analyse another image
+</a>
+
+{% endblock %}
