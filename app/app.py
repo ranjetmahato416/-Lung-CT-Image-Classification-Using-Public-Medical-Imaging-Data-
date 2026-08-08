@@ -42,6 +42,9 @@ from services.file_service import (
 
 from flask import url_for
 
+from config import MODEL_PATH
+
+
 
 app = Flask(__name__)
 
@@ -331,24 +334,15 @@ def file_too_large(error):
 # Health Check
 # ============================================================
 
-@app.route(
-    "/health",
-    methods=["GET"]
-)
+
+@app.route("/health")
 def health():
 
     return {
-        "status":
-            "ok",
-
-        "application":
-            "Lung Nodule Classification",
-
-        "model":
-            "DenseNet121",
-
-        "model_loaded":
-            True
+        "status": "ok",
+        "application": "Lung Nodule Classification",
+        "model": "DenseNet121",
+        "model_file_available": MODEL_PATH.exists()
     }, 200
 
 
