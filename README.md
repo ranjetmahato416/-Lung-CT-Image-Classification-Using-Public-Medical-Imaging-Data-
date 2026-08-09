@@ -103,7 +103,9 @@ cd <YOUR_REPOSITORY_NAME>
 source .venv/bin/activate`
 
 ### 4. Install dependencies
-`Install dependencies`
+```bash
+pip install -r requirements.txt
+```
 
 ### 5. Download the trained DenseNet121 model
 - Download model from the GitHub Releases page.

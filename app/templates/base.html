@@ -50,12 +50,39 @@
 
     </main>
 
+    <div id="loading-overlay" aria-hidden="true">
+        <div class="loading-panel" role="status" aria-live="polite">
+            <div class="loading-ring"></div>
+            <div class="loading-badge">Analyzing image</div>
+            <div class="loading-subtitle">Please wait while the model processes your CT scan.</div>
+        </div>
+    </div>
 
     <footer class="site-footer">
 
         MSc Dissertation Research Prototype
 
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var overlay = document.getElementById('loading-overlay');
+            var forms = document.querySelectorAll('form[method="POST"]');
+
+            forms.forEach(function (form) {
+                form.addEventListener('submit', function () {
+                    var submit = form.querySelector('button[type="submit"], input[type="submit"]');
+                    if (submit) {
+                        submit.disabled = true;
+                        submit.textContent = 'Analyzing...';
+                    }
+                    if (overlay) {
+                        overlay.style.display = 'flex';
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 
