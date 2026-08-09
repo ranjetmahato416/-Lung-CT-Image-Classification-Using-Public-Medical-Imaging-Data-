@@ -1,20 +1,41 @@
-# Model File
+# DenseNet121 Model Setup
 
-The Flask application requires the final validation-selected
-fine-tuned DenseNet121 checkpoint:
+The trained model is intentionally not stored directly in the Git
+repository because it is a large binary artifact.
+
+## Final Selected Model
+
+The Flask application uses:
 
 `best_model.keras`
 
-Place the file in:
+Architecture:
 
-`app/models/best_model.keras`
+`Fine-Tuned DenseNet121`
 
-The model file is not stored in this repository due to its size.
+The architecture was selected using validation PR-AUC rather than test
+performance.
 
-Final model:
-- Architecture: DenseNet121
-- Selection metric: Validation PR-AUC
-- Validation PR-AUC: 0.587677
-- Test ROC-AUC: 0.855333
-- Test PR-AUC: 0.588136
-- Validation-selected F1 threshold: 0.669041
+### Performance
+
+| Metric | Value |
+|---|---:|
+| Validation ROC-AUC | 0.861586 |
+| Validation PR-AUC | 0.587677 |
+| Test ROC-AUC | 0.855333 |
+| Test PR-AUC | 0.588136 |
+| Validation F1 Threshold | 0.669041 |
+| High-Recall Threshold | 0.445648 |
+
+## Download
+
+Download `best_model.keras` from the repository's GitHub Releases page.
+
+## Required Location
+
+After downloading the file, place it at:
+
+```text
+app/
+└── models/
+    └── best_model.keras

@@ -69,3 +69,148 @@ app/
 results/
 docs/
 scripts/
+
+## Running the Web Application Locally
+
+### Prerequisites
+
+- Python 3.x
+- Git
+- Internet access for Gemini API explanations
+- A Gemini Developer API key
+
+### 1. Clone the repository
+
+```bash
+git clone <YOUR_REPOSITORY_URL>
+cd <YOUR_REPOSITORY_NAME>
+
+###2. Open the Flask application
+
+`cd app`
+
+###3. Open the Flask application
+- Windows
+`python -m venv .venv
+.venv\Scripts\activate`
+
+-macOS/Linux
+`python3 -m venv .venv
+source .venv/bin/activate`
+
+###4. Install dependencies
+`Install dependencies`
+
+###5. Download the trained DenseNet121 model
+-Download model from the GitHub Releases page.
+`best_model.keras`
+-Place it at:
+`app/models/best_model.keras`
+Resulting structure must be 
+app/
+├── app.py
+├── config.py
+├── models/
+│   └── best_model.keras
+└── ...
+
+###6. Configure environment variables
+`GEMINI_API_KEY=your_api_key_here
+GEMINI_MODEL=gemini-3.6-flash
+FLASK_SECRET_KEY=replace_with_a_private_random_value`
+
+###7. Verify the model
+`python -c "from config import MODEL_PATH; print('Model available:', MODEL_PATH.exists())"`
+
+###8. Run automated test 
+`pytest -v`
+
+###9. Start flask 
+`python app.py`
+
+Then open:
+`http://127.0.0.1:5000/`
+
+
+###10. Health check
+
+Open `http://127.0.0.1:5000/health`
+
+The endpoint should return a successful JSON response.
+
+
+```markdown
+## Application Architecture
+
+The final research prototype follows this inference pipeline:
+
+```text
+CT nodule image
+        │
+        ▼
+Flask upload validation
+        │
+        ▼
+Image preprocessing
+128 × 128 × 3, float32
+        │
+        ▼
+Fine-Tuned DenseNet121
+        │
+        ▼
+Malignancy output score
+        │
+        ▼
+Validation-selected threshold
+0.669041
+        │
+        ├───────────────┐
+        ▼               ▼
+Classification       Grad-CAM
+Benign/Malignant     visual explanation
+        │               │
+        └───────┬───────┘
+                ▼
+          Gemini API
+     textual explanation
+                │
+                ▼
+          Flask result page
+
+
+## Web Application
+
+### Upload Interface
+
+![Application homepage](docs/screenshots/homepage.png)
+
+### DenseNet121 Prediction with Grad-CAM
+
+![Prediction and Grad-CAM](docs/screenshots/benign_result.png)
+
+### Automated Test Suite
+
+![Pytest results](docs/screenshots/pytest_results.png)
+
+
+## Experimental Results
+
+### CNN Architecture Comparison
+
+![CNN model comparison](results/figures/cnn_architecture_test_comparison.png)
+
+### Final DenseNet121 ROC Curve
+
+![DenseNet ROC curve](results/figures/densenet121_test_roc_curve.png)
+
+### Final DenseNet121 Precision-Recall Curve
+
+![DenseNet PR curve](results/figures/densenet121_test_pr_curve.png)
+
+### Final Confusion Matrix
+
+![DenseNet confusion matrix](results/figures/densenet121_final_confusion_matrix.png)
+
+### Grad-CAM Explainability
+
+![DenseNet Grad-CAM](results/figures/densenet121_gradcam_typical_cases_panel.png)
