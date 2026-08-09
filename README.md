@@ -69,6 +69,8 @@ app/
 results/
 docs/
 scripts/
+```
+
 
 ## Running the Web Application Locally
 
@@ -84,12 +86,14 @@ scripts/
 ```bash
 git clone <YOUR_REPOSITORY_URL>
 cd <YOUR_REPOSITORY_NAME>
+```
 
-###2. Open the Flask application
+
+### 2. Open the Flask application
 
 `cd app`
 
-###3. Open the Flask application
+### 3. Open the Flask application
 - Windows
 `python -m venv .venv
 .venv\Scripts\activate`
@@ -98,10 +102,10 @@ cd <YOUR_REPOSITORY_NAME>
 `python3 -m venv .venv
 source .venv/bin/activate`
 
-###4. Install dependencies
+### 4. Install dependencies
 `Install dependencies`
 
-###5. Download the trained DenseNet121 model
+### 5. Download the trained DenseNet121 model
 -Download model from the GitHub Releases page.
 `best_model.keras`
 -Place it at:
@@ -114,25 +118,25 @@ app/
 │   └── best_model.keras
 └── ...
 
-###6. Configure environment variables
+### 6. Configure environment variables
 `GEMINI_API_KEY=your_api_key_here
 GEMINI_MODEL=gemini-3.6-flash
 FLASK_SECRET_KEY=replace_with_a_private_random_value`
 
-###7. Verify the model
+### 7. Verify the model
 `python -c "from config import MODEL_PATH; print('Model available:', MODEL_PATH.exists())"`
 
-###8. Run automated test 
+### 8. Run automated test 
 `pytest -v`
 
-###9. Start flask 
+### 9. Start flask 
 `python app.py`
 
 Then open:
 `http://127.0.0.1:5000/`
 
 
-###10. Health check
+### 10. Health check
 
 Open `http://127.0.0.1:5000/health`
 
@@ -177,6 +181,7 @@ Benign/Malignant     visual explanation
                 ▼
           Flask result page
 
+```
 
 ## Web Application
 
