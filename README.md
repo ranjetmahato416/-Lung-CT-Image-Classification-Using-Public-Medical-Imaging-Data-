@@ -98,7 +98,7 @@ cd <YOUR_REPOSITORY_NAME>
 `python -m venv .venv
 .venv\Scripts\activate`
 
--macOS/Linux
+- macOS/Linux
 `python3 -m venv .venv
 source .venv/bin/activate`
 
@@ -106,7 +106,7 @@ source .venv/bin/activate`
 `Install dependencies`
 
 ### 5. Download the trained DenseNet121 model
--Download model from the GitHub Releases page.
+- Download model from the GitHub Releases page.
 `best_model.keras`
 -Place it at:
 `app/models/best_model.keras`
@@ -148,7 +148,6 @@ The endpoint should return a successful JSON response.
 
 The final research prototype follows this inference pipeline:
 
-```text
 CT nodule image
         │
         ▼
@@ -187,15 +186,20 @@ Benign/Malignant     visual explanation
 
 ### Upload Interface
 
-![Application homepage](docs/screenshots/homepage.png)
+![Application homepage](docs/screenshots/Homepage.png)
 
 ### DenseNet121 Prediction with Grad-CAM
 
+![Prediction and Grad-CAM](docs/screenshots/Grad-CAM_Visualization.png)
 ![Prediction and Grad-CAM](docs/screenshots/benign_result.png)
 
 ### Automated Test Suite
 
 ![Pytest results](docs/screenshots/pytest_results.png)
+
+### AI Assistant Explanation
+
+![AI Explanation] (docs/screenshhots/Gemini-AI Explanation.png)
 
 
 ## Experimental Results
