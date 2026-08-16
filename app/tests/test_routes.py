@@ -10,6 +10,8 @@ from services.model_service import (
     predict_image
 )
 
+from unittest.mock import patch
+
 def create_test_image():
 
     image = Image.new(
@@ -234,3 +236,66 @@ def test_oversized_upload():
         b"too large"
         in response.data.lower()
     )
+
+
+@patch(
+    "app.predict_image"
+)
+@patch(
+    "app.validate_input_domain"
+)
+def test_unsupported_input_does_not_run_classifier(
+    mock_domain_validation,
+    mock_predict_image
+):
+
+    mock_domain_validation.return_value = {
+
+        "probability":
+            0.05,
+
+        "threshold":
+            0.968,
+
+        "accepted":
+            False,
+
+        "status":
+            "Unsupported"
+    }
+
+
+    client = app.test_client()
+
+
+    test_image = create_test_image()
+
+
+    response = client.post(
+        "/",
+
+        data={
+            "image": (
+                test_image,
+                "test.png"
+            )
+        },
+
+        content_type=
+            "multipart/form-data"
+    )
+
+
+    assert (
+        response.status_code
+        == 200
+    )
+
+
+    assert (
+        b"Unsupported Image"
+        in response.data
+    )
+
+
+    mock_predict_image.assert_not_called()
