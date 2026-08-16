@@ -4,8 +4,7 @@ MSc Computer Science Dissertation Project
 
 ## Overview
 
-This project investigates deep-learning-based binary classification
-of lung nodules from CT images using the LIDC-IDRI dataset.
+This project presents an explainable deep learning framework for lung CT nodule classification using public medical imaging datasets. The system combines a supervised MobileNetV2 input-domain validator, a fine-tuned DenseNet121 classifier, Grad-CAM visual explanations, and Gemini-generated natural-language explanations within a Flask web application.
 
 Three transfer-learning architectures were evaluated:
 
@@ -18,14 +17,35 @@ using the test set for model selection.
 
 Fine-tuned DenseNet121 was selected as the final model.
 
-The project also includes a Flask web application with:
+## Project Highlights
 
-- CT image upload
-- DenseNet121 inference
-- validation-selected decision threshold
-- Grad-CAM visual explainability
-- Gemini-generated textual explanation
-- automated application tests
+- 🎓 MSc Computer Science Dissertation Project (University of East London)
+- 🩺 Fine-tuned DenseNet121 for benign vs malignant lung CT nodule classification
+- 🛡️ Dedicated MobileNetV2 input-domain validator to reject unsupported images
+- 🔥 Grad-CAM visual explainability
+- 🤖 Gemini AI-generated prediction explanation
+- 🌐 Flask web application
+- ✅ Automated testing using pytest
+- 📊 Comprehensive evaluation on independent test datasets
+
+
+## Input Domain Validation
+
+A dedicated MobileNetV2 model validates whether an uploaded image belongs
+to the supported lung CT nodule domain before malignancy prediction.
+
+| Metric | Result |
+|---|---:|
+| Test ROC-AUC | 1.000 |
+| Test PR-AUC | 1.000 |
+| Supported CT Acceptance | 97.66% |
+| Benign Acceptance | 97.74% |
+| Malignant Acceptance | 97.14% |
+| Chest X-ray Rejection | 100% |
+| MRI Rejection | 100% |
+| Ultrasound Rejection | 100% |
+| Natural Image Rejection | 100% |
+
 
 ## Final Model Performance
 
@@ -61,14 +81,44 @@ Gemini is used only to explain the DenseNet121 prediction and
 Grad-CAM metadata in plain language. Gemini does not perform the
 classification.
 
+## The Flask application includes:
+
+- Image upload and validation
+- Supervised MobileNetV2 input-domain validation
+- Fine-tuned DenseNet121 inference
+- Validation-selected decision thresholds
+- Grad-CAM visual explanations
+- Gemini AI-generated explanations
+- Automated pytest test suite
+- Robust error handling for unsupported or invalid uploads
+
 ## Repository Structure
 
 ```text
-notebooks/
-app/
-results/
-docs/
-scripts/
+├── notebooks/
+│   ├── Notebook_01_Preprocessing.ipynb
+│   ├── ...
+│   └── Notebook_16B_Domain_Validator.ipynb
+│
+├── app/
+│   ├── models/
+│   ├── services/
+│   ├── templates/
+│   ├── static/
+│   ├── tests/
+│   ├── app.py
+│   └── config.py
+│
+├── docs/
+│   ├── screenshots/
+│   └── figures/
+│
+├── results/
+│   └── figures/
+│
+├── README.md
+├── requirements.txt
+└── LICENSE
 ```
 
 
@@ -107,18 +157,22 @@ source .venv/bin/activate`
 pip install -r requirements.txt
 ```
 
-### 5. Download the trained DenseNet121 model
-- Download model from the GitHub Releases page.
-`best_model.keras`
--Place it at:
-`app/models/best_model.keras`
-Resulting structure must be 
-app/
-├── app.py
-├── config.py
-├── models/
-│   └── best_model.keras
-└── ...
+### 5. Download the Trained Models
+
+Download the following files from the GitHub Releases page:
+
+- `best_model.keras` (DenseNet121 classifier)
+- `domain_validator.keras` (MobileNetV2 input-domain validator)
+- `domain_threshold.json`
+
+Place them inside:
+
+```
+app/models/
+├── best_model.keras
+├── domain_validator.keras
+└── domain_threshold.json
+```
 
 ### 6. Configure environment variables
 `GEMINI_API_KEY=your_api_key_here
@@ -148,41 +202,45 @@ The endpoint should return a successful JSON response.
 ```markdown
 ## Application Architecture
 
-The final research prototype follows this inference pipeline:
 
-CT nodule image
-        │
-        ▼
-Flask upload validation
-        │
-        ▼
-Image preprocessing
-128 × 128 × 3, float32
-        │
-        ▼
-Fine-Tuned DenseNet121
-        │
-        ▼
-Malignancy output score
-        │
-        ▼
-Validation-selected threshold
-0.669041
-        │
-        ├───────────────┐
-        ▼               ▼
-Classification       Grad-CAM
-Benign/Malignant     visual explanation
-        │               │
-        └───────┬───────┘
-                ▼
-          Gemini API
-     textual explanation
-                │
-                ▼
-          Flask result page
+Uploaded Image
+      │
+      ▼
+Image Validation
+      │
+      ▼
+MobileNetV2 Domain Validator
+      │
+      ├───────────────┐
+      │               │
+Unsupported       Supported
+      │               │
+      ▼               ▼
+ Reject        DenseNet121
+                   │
+                   ▼
+             Benign/Malignant
+                   │
+                   ▼
+                Grad-CAM
+                   │
+                   ▼
+           Gemini Explanation
+                   │
+                   ▼
+              Final Report
 
 ```
+## Application Workflow
+
+1. User uploads an image.
+2. File type and integrity are validated.
+3. MobileNetV2 verifies whether the image belongs to the supported lung CT domain.
+4. Unsupported images are rejected before any diagnosis.
+5. Supported CT images are analysed using DenseNet121.
+6. Grad-CAM generates a visual explanation.
+7. Gemini AI produces a natural-language explanation.
+8. The final result is displayed to the user.
 
 ## Web Application
 
@@ -201,7 +259,7 @@ Benign/Malignant     visual explanation
 
 ### AI Assistant Explanation
 
-![AI Explanation] (docs/screenshhots/Gemini-AI Explanation.png)
+![AI Explanation](docs/screenshots/Gemini-AI_Explanation.png)
 
 
 ## Experimental Results
@@ -225,3 +283,62 @@ Benign/Malignant     visual explanation
 ### Grad-CAM Explainability
 
 ![DenseNet Grad-CAM](results/figures/densenet121_gradcam_typical_cases_panel.png)
+
+### Unsupported Image Detection
+
+![Unsupported image](docs/screenshots/unsupported_image.png)
+
+
+### Test Coverage
+
+The application was validated using automated and manual tests covering:
+
+- Supported CT image prediction
+- Benign prediction
+- Malignant prediction
+- Chest X-ray rejection
+- MRI rejection
+- Ultrasound rejection
+- Natural image rejection
+- Invalid file upload
+- Corrupted image handling
+- Oversized upload rejection
+- Flask route testing
+- Gemini API integration
+
+## Limitations
+
+- This application is intended for research purposes only.
+- It does not provide a clinical diagnosis.
+- The model was trained on public datasets and should not be used in clinical practice.
+- The domain validator measures compatibility with the training distribution rather than identifying imaging modalities with certainty.
+- The system currently supports single-image inference only.
+
+## Future Work
+
+Potential extensions include:
+
+- Native DICOM upload support
+- 3D CNN or Vision Transformer models
+- Multi-class pulmonary disease classification
+- Segmentation-guided malignancy prediction
+- PACS integration
+- Clinical validation using larger multi-centre datasets
+
+## Citation
+
+If you use this repository, please cite:
+
+Ranjeet Kumar Mahato
+
+Explainable Lung Nodule Malignancy Classification from CT Images
+
+MSc Computer Science Dissertation
+
+University of East London
+
+2026
+
+## License
+
+This project is released under the MIT License.
