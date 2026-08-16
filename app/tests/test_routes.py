@@ -299,3 +299,88 @@ def test_unsupported_input_does_not_run_classifier(
 
 
     mock_predict_image.assert_not_called()
+
+
+@patch(
+    "app.generate_explanation_safe"
+)
+@patch(
+    "app.generate_gradcam"
+)
+@patch(
+    "app.predict_image"
+)
+@patch(
+    "app.validate_input_domain"
+)
+def test_supported_input_reaches_classifier(
+    mock_domain_validation,
+    mock_predict_image,
+    mock_gradcam,
+    mock_gemini
+):
+
+    mock_domain_validation.return_value = {
+
+        "probability":
+            0.99,
+
+        "threshold":
+            0.968,
+
+        "accepted":
+            True,
+
+        "status":
+            "Supported"
+    }
+
+
+    mock_predict_image.return_value = {
+
+        "probability":
+            0.90,
+
+        "predicted_label":
+            1,
+
+        "predicted_class":
+            "Malignant",
+
+        "threshold":
+            0.6690409183502197
+    }
+
+
+    mock_gradcam.return_value = None
+
+    mock_gemini.return_value = (
+        "Test explanation."
+    )
+
+
+    client = app.test_client()
+
+
+    response = client.post(
+        "/",
+
+        data={
+            "image": (
+                create_test_image(),
+                "test.png"
+            )
+        },
+
+        content_type=
+            "multipart/form-data"
+    )
+
+
+    assert (
+        response.status_code
+        == 200
+    )
+
+
+    mock_predict_image.assert_called_once()
