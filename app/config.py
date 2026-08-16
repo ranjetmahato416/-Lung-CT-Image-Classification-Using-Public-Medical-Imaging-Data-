@@ -34,6 +34,23 @@ MODEL_PATH = (
     / "best_model.keras"
 )
 
+# ============================================================
+# Domain Validation Model
+# ============================================================
+
+DOMAIN_MODEL_PATH = (
+    BASE_DIR
+    / "models"
+    / "domain_validator.keras"
+)
+
+
+DOMAIN_THRESHOLD_PATH = (
+    BASE_DIR
+    / "models"
+    / "domain_threshold.json"
+)
+
 IMAGE_SIZE = (
     128,
     128
