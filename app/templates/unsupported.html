@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="unsupported-section">
+
+    <h1>
+        Unsupported Image
+    </h1>
+
+    <p class="unsupported-message">
+        The uploaded image was not sufficiently compatible
+        with the preprocessed lung CT nodule images used to
+        develop this research system.
+    </p>
+
+
+    <div class="domain-result-card">
+
+        <h3>
+            Input Domain Validation
+        </h3>
+
+        <p>
+            <strong>
+                Compatibility score:
+            </strong>
+
+            {{ "%.2f"|format(
+                domain_probability * 100
+            ) }}%
+        </p>
+
+
+        <p>
+            <strong>
+                Required threshold:
+            </strong>
+
+            {{ "%.2f"|format(
+                domain_threshold * 100
+            ) }}%
+        </p>
+
+    </div>
+
+
+    <div class="research-notice">
+
+        <strong>
+            No Benign/Malignant classification was performed.
+        </strong>
+
+        <p>
+            The domain validator only measures compatibility
+            with the image distribution used to develop this
+            prototype. It does not provide definitive medical
+            image modality identification.
+        </p>
+
+    </div>
+
+
+    <a
+        href="{{ url_for('index') }}"
+        class="back-link"
+    >
+        Analyse another image
+    </a>
+
+</section>
+
+{% endblock %}
