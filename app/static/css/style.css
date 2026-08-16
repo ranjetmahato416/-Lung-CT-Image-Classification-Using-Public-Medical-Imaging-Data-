@@ -317,3 +317,25 @@ button:disabled {
         gap: 5px;
     }
 }
+
+.unsupported-section {
+    text-align: center;
+}
+
+.unsupported-message {
+    max-width: 700px;
+    margin: 20px auto;
+    line-height: 1.7;
+}
+
+.domain-result-card {
+    max-width: 550px;
+    margin: 30px auto;
+    padding: 24px;
+    background: #f8fafc;
+    border-radius: 12px;
+}
+
+.domain-result-card h3 {
+    margin-top: 0;
+}
