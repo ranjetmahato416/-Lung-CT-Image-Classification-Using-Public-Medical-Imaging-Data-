@@ -1,0 +1,6 @@
+{
+    "SelectedModel": "Fine-Tuned MobileNetV2",
+    "Threshold": 0.9680000000000001,
+    "TestROC_AUC": 1.0,
+    "TestPR_AUC": 1.0
+}
