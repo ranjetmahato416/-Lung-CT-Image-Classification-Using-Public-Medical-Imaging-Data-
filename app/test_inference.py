@@ -6,7 +6,7 @@ from services.model_service import (
 
 
 IMAGE_PATH = Path(
-    r"C:\Users\Dell\Desktop\Colab_Notebook\Dataset\Processed\CNN_Dataset\Malignant\LIDC-IDRI-0385_Nodule_002.png"
+    r"C:\Users\Dell\Desktop\-Lung-CT-Image-Classification-Using-Public-Medical-Imaging-Data-\app\tests\fixtures\LIDC-IDRI-0044_Nodule_003_Malignant.png"
 )
 
 

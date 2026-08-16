@@ -120,12 +120,12 @@ def test_corrupt_png():
 TEST_IMAGE = (
     Path(__file__).parent
     / "fixtures"
-    / "LIDC-IDRI-0050_Nodule_001.png"
+    / "LIDC-IDRI-0044_Nodule_003_Malignant.png"
 )
 
 
 EXPECTED_PROBABILITY = (
-    0.9631621241569519
+   0.9188607335090637
 )
 
 
