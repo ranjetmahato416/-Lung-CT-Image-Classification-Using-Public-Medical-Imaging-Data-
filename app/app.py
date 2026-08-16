@@ -44,6 +44,10 @@ from flask import url_for
 
 from config import MODEL_PATH
 
+from services.domain_validation_service import (
+    validate_input_domain
+)
+
 
 
 app = Flask(__name__)
@@ -205,6 +209,41 @@ def index():
 
             return redirect(
                 request.url
+            )
+
+        # ------------------------------------------
+        # Input-Domain Validation
+        # ------------------------------------------
+
+        domain_result = (
+            validate_input_domain(
+                upload_path
+            )
+        )
+
+
+        if not domain_result[
+            "accepted"
+        ]:
+
+            return render_template(
+                "unsupported.html",
+
+                filename=
+                    unique_filename,
+
+                original_filename=
+                    original_filename,
+
+                domain_probability=
+                    domain_result[
+                        "probability"
+                    ],
+
+                domain_threshold=
+                    domain_result[
+                        "threshold"
+                    ]
             )
 
         # ------------------------------------------
